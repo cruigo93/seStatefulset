@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-deployment
+spec:
+  selector:
+    matchLabels:
+      app: hello-py-app
+  template:
+    metadata:
+      labels:
+        app: hello-py-app
+    spec:
+      containers:
+      - name: hello-app
+        image: cruigo93/helloapp:v15
+        env:
+          - name: DATABASE_URI
+            valueFrom:
+              secretKeyRef:
+                name: hello-secret
+                key: DATABASE_URI
+            
+          - name: GREETING
+            value: "Alloha"
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+          - name: web
+            containerPort: 80

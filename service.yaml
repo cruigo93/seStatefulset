@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-py-app
+spec:
+  selector:
+    app: hello-py-app
+  ports:
+  - port: 80
+    targetPort: web
+  type: NodePort
